@@ -1,94 +1,100 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 
 const props = defineProps({
   lines: {
     type: Array,
-    default: () => ['My Blog', 'A VitePress Blog']
+    default: () => ['岩yan的博客', '探索，好奇，热爱'],
   },
   lineDelay: {
     type: Number,
-    default: 500
+    default: 500,
   },
   charDelay: {
     type: Number,
-    default: 100
+    default: 100,
   },
   cursor: {
     type: String,
-    default: '|'
-  }
-})
+    default: '|',
+  },
+});
 
-const displayedLines = ref([])
-const currentLineIndex = ref(0)
-const currentCharIndex = ref(0)
-const showCursor = ref(true)
-const isTyping = ref(false)
+const displayedLines = ref([]);
+const currentLineIndex = ref(0);
+const currentCharIndex = ref(0);
+const showCursor = ref(true);
+const isTyping = ref(false);
 
 const startTyping = () => {
-  isTyping.value = true
-  displayedLines.value = []
-  currentLineIndex.value = 0
-  currentCharIndex.value = 0
-  typeNextChar()
-}
+  isTyping.value = true;
+  displayedLines.value = [];
+  currentLineIndex.value = 0;
+  currentCharIndex.value = 0;
+  typeNextChar();
+};
 
 const typeNextChar = () => {
   if (currentLineIndex.value >= props.lines.length) {
-    isTyping.value = false
-    return
+    isTyping.value = false;
+    return;
   }
 
-  const currentLine = props.lines[currentLineIndex.value]
-  
+  const currentLine = props.lines[currentLineIndex.value];
+
   if (currentCharIndex.value < currentLine.length) {
     // Initialize line if needed
     if (!displayedLines.value[currentLineIndex.value]) {
-      displayedLines.value[currentLineIndex.value] = ''
+      displayedLines.value[currentLineIndex.value] = '';
     }
-    
-    displayedLines.value[currentLineIndex.value] = currentLine.substring(0, currentCharIndex.value + 1)
-    currentCharIndex.value++
-    
-    setTimeout(typeNextChar, props.charDelay)
+
+    displayedLines.value[currentLineIndex.value] = currentLine.substring(
+      0,
+      currentCharIndex.value + 1
+    );
+    currentCharIndex.value++;
+
+    setTimeout(typeNextChar, props.charDelay);
   } else {
     // Line complete, move to next line
-    currentLineIndex.value++
-    currentCharIndex.value = 0
-    
-    setTimeout(typeNextChar, props.lineDelay)
+    currentLineIndex.value++;
+    currentCharIndex.value = 0;
+
+    setTimeout(typeNextChar, props.lineDelay);
   }
-}
+};
 
 // Cursor blink animation
 setInterval(() => {
-  showCursor.value = !showCursor.value
-}, 530)
+  showCursor.value = !showCursor.value;
+}, 530);
 
 onMounted(() => {
-  setTimeout(startTyping, 300)
-})
+  setTimeout(startTyping, 300);
+});
 </script>
 
 <template>
   <div class="typewriter-hero">
-    <div 
-      v-for="(line, index) in displayedLines" 
+    <div
+      v-for="(line, index) in displayedLines"
       :key="index"
       class="typewriter-line"
-      :class="{ 
-        'is-title': index === 0, 
+      :class="{
+        'is-title': index === 0,
         'is-subtitle': index === 1,
-        'is-tagline': index === 2
+        'is-tagline': index === 2,
       }"
     >
       {{ line }}
-      <span 
-        v-if="index === displayedLines.length - 1 && isTyping" 
+      <span
+        v-if="index === displayedLines.length - 1 && isTyping"
         class="cursor"
-        :class="{ blink: !showCursor }"
-      >{{ cursor }}</span>
+        :class="{
+          blink: !showCursor,
+        }"
+        >{{ cursor }}</span
+      >
     </div>
   </div>
 </template>
@@ -138,7 +144,7 @@ onMounted(() => {
   .typewriter-line.is-title {
     font-size: 2rem;
   }
-  
+
   .typewriter-line.is-subtitle {
     font-size: 1.2rem;
   }

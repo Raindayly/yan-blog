@@ -1,44 +1,64 @@
 <script setup>
-import { withBase } from 'vitepress'
-import { usePosts } from '../composables/usePosts'
+import { withBase } from 'vitepress';
+import { usePosts } from '../composables/usePosts';
 
-const posts = usePosts()
+const posts = usePosts();
 
 function formatDate(dateStr) {
-  if (!dateStr) return ''
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'short', 
-    day: 'numeric' 
-  })
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 </script>
 
 <template>
   <div class="waterfall-container">
     <div class="waterfall-grid">
-      <article 
-        v-for="post in posts" 
+      <article
+        v-for="post in posts"
         :key="post.url"
         class="post-card"
       >
-        <a :href="post.url" class="post-card-link">
-          <div class="post-card-image" v-if="post.frontmatter.image">
-            <img :src="withBase(post.frontmatter.image)" :alt="post.frontmatter.title" />
+        <a
+          :href="post.url"
+          class="post-card-link"
+        >
+          <div
+            class="post-card-image"
+            v-if="post.frontmatter.image"
+          >
+            <img
+              :src="withBase(post.frontmatter.image)"
+              :alt="post.frontmatter.title"
+            />
           </div>
           <div class="post-card-content">
-            <h3 class="post-card-title">{{ post.frontmatter.title }}</h3>
-            <p class="post-card-excerpt" v-if="post.frontmatter.description">
+            <h3 class="post-card-title">
+              {{ post.frontmatter.title }}
+            </h3>
+            <p
+              class="post-card-excerpt"
+              v-if="post.frontmatter.description"
+            >
               {{ post.frontmatter.description }}
             </p>
             <div class="post-card-meta">
-              <span class="post-card-date" v-if="post.frontmatter.date">
+              <span
+                class="post-card-date"
+                v-if="post.frontmatter.date"
+              >
                 {{ formatDate(post.frontmatter.date) }}
               </span>
-              <div class="post-card-tags" v-if="post.frontmatter.tags">
-                <span 
-                  v-for="tag in post.frontmatter.tags.slice(0, 3)" 
+              <div
+                class="post-card-tags"
+                v-if="post.frontmatter.tags"
+              >
+                <span
+                  v-for="tag in post.frontmatter.tags.slice(0, 3)"
                   :key="tag"
                   class="post-card-tag"
                 >
@@ -50,8 +70,11 @@ function formatDate(dateStr) {
         </a>
       </article>
     </div>
-    
-    <div class="waterfall-empty" v-if="posts.length === 0">
+
+    <div
+      class="waterfall-empty"
+      v-if="posts.length === 0"
+    >
       <p>No posts yet. Check back soon!</p>
     </div>
   </div>
@@ -86,7 +109,9 @@ function formatDate(dateStr) {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--vp-c-divider);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .post-card:hover {
