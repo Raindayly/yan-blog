@@ -1,0 +1,197 @@
+/**
+ * Customize VitePress default theme
+ */
+
+/* Custom colors */
+:root {
+  --vp-c-brand: #3eaf7c;
+  --vp-c-brand-light: #4act9c;
+  --vp-c-brand-lighter: #74d6b4;
+  --vp-c-brand-dark: #2d8f5c;
+  --vp-c-brand-darker: #1e6b42;
+  
+  /* Custom font */
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --vp-font-family-mono: 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+/* Dark mode colors */
+.dark {
+  --vp-c-brand: #4act9c;
+  --vp-c-brand-light: #74d6b4;
+  --vp-c-brand-lighter: #a0e8cc;
+  --vp-c-brand-dark: #3eaf7c;
+  --vp-c-brand-darker: #2d8f5c;
+}
+
+/* Hero background image with gradient fallback */
+.VPHomeHero {
+  /* Gradient background as fallback */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 80vh !important;
+  max-height: 80vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 1.5rem !important;
+  overflow: hidden;
+}
+
+/* Center hero content */
+.VPHomeHero .container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100%;
+  max-width: 1152px;
+}
+
+.VPHomeHero .main {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100%;
+}
+
+.VPHomeHero .main .actions {
+  justify-content: center !important;
+}
+
+/* If you have a background image, place it in public/hero-bg.png and uncomment below */
+/*
+.VPHomeHero {
+  background-image: url('/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+*/
+
+/* Add overlay for better readability */
+.VPHomeHero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 0;
+}
+
+.VPHomeHero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark mode background */
+.dark .VPHomeHero::before {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.VPHomeFeatures {
+  padding: 4rem 1.5rem;
+}
+
+/* Custom card styles */
+.VPFeature {
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.VPFeature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom link styles */
+.VPButton.brand {
+  background-color: var(--vp-c-brand);
+  transition: background-color 0.25s ease;
+}
+
+.VPButton.brand:hover {
+  background-color: var(--vp-c-brand-dark);
+}
+
+/* Custom code block styles */
+div[class*='language-'] {
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+/* Custom table styles */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+table th,
+table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--vp-c-divider);
+}
+
+table th {
+  background-color: var(--vp-c-bg-soft);
+  font-weight: 600;
+}
+
+table tr:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+
+/* Custom blockquote styles */
+blockquote {
+  border-left: 4px solid var(--vp-c-brand);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* Custom heading anchor styles */
+.heading-anchor {
+  color: var(--vp-c-text-3);
+  transition: color 0.25s ease;
+}
+
+.heading-anchor:hover {
+  color: var(--vp-c-brand);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+
+/* Print styles */
+@media print {
+  .VPNav,
+  .VPSidebar,
+  .VPLocalNav {
+    display: none !important;
+  }
+  
+  .VPContent {
+    padding: 0 !important;
+  }
+}
